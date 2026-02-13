@@ -1,172 +1,187 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Be My Valentine 💖</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Be My Valentine 💖</title>
 
-<style>
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
 
-body {
-  background: #ffcad4;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+    body {
+      background: #ffcad4;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow-x: hidden; /* Prevents scrollbars when button moves */
+    }
 
-.container {
-  text-align: center;
-  max-width: 420px;
-  padding: 20px;
-}
+    .container {
+      text-align: center;
+      max-width: 420px;
+      padding: 20px;
+    }
 
-h1 {
-  color: #d90429;
-  margin: 20px 0;
-}
+    h1 {
+      color: #d90429;
+      margin: 20px 0;
+    }
 
-p {
-  color: #444;
-}
+    /* Keep buttons side-by-side initially */
+    .button-group {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 30px;
+      height: 50px; /* Reserves space so page doesn't jump */
+      align-items: center;
+    }
 
-button {
-  border: none;
-  padding: 12px 25px;
-  border-radius: 25px;
-  font-weight: bold;
-  cursor: pointer;
-  margin: 8px;
-}
+    button {
+      border: none;
+      padding: 12px 25px;
+      border-radius: 25px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
 
-.yes {
-  background: #4caf50;
-  color: white;
-}
+    .yes {
+      background: #4caf50;
+      color: white;
+    }
 
-.no {
-  background: #d90429;
-  color: white;
-  position: absolute;
-}
+    .no {
+      background: #d90429;
+      color: white;
+      position: relative; /* Changed from absolute so it starts straight */
+      z-index: 10;
+    }
 
-.back {
-  background: #666;
-  color: white;
-  margin-top: 15px;
-}
+    .back {
+      background: #666;
+      color: white;
+      margin-top: 15px;
+    }
 
-/* ===== ENVELOPE ===== */
-.envelope {
-  width: 280px;
-  height: 180px;
-  margin: 20px auto;
-  background: linear-gradient(180deg, #ff4d6d, #f08080);
-  border-radius: 0 0 12px 12px;
-  position: relative;
-  cursor: pointer;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.15);
-}
+    /* ===== ENVELOPE ===== */
+    .envelope {
+      width: 280px;
+      height: 180px;
+      margin: 40px auto 20px; /* Added margin to clear the buttons */
+      background: #f08080;
+      border-radius: 0 0 12px 12px;
+      position: relative;
+      cursor: pointer;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-.envelope::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  margin: auto;
-  width: 0;
-  height: 0;
-  border-left: 140px solid transparent;
-  border-right: 140px solid transparent;
-  border-top: 90px solid #ff4d6d;
-}
+    /* The Flap */
+    .envelope::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 2;
+      border-left: 140px solid transparent;
+      border-right: 140px solid transparent;
+      border-top: 90px solid #ff4d6d;
+    }
 
-.letter {
-  background: white;
-  width: 240px;
-  height: 130px;
-  margin: 20px auto;
-  padding: 15px;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  font-size: 14px;
-}
+    /* The Letter - Adjusted to be visible */
+    .letter {
+      background: white;
+      width: 240px;
+      height: 130px;
+      padding: 15px;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size: 14px;
+      position: relative;
+      z-index: 1; /* Sits under the flap visually */
+      margin-top: 20px; /* Pushes text down so flap doesn't cover it */
+    }
 
-/* ===== MODAL ===== */
-.modal {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.85);
-  display: none; /* IMPORTANT */
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
-}
+    /* ===== MODAL ===== */
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      z-index: 100;
+    }
 
-.modal-card {
-  background: white;
-  padding: 20px;
-  border-radius: 18px;
-  max-width: 400px;
-  width: 100%;
-}
+    .modal-card {
+      background: white;
+      padding: 20px;
+      border-radius: 18px;
+      max-width: 400px;
+      width: 100%;
+    }
 
-iframe {
-  width: 100%;
-  height: 230px;
-  border-radius: 10px;
-  border: none;
-}
+    iframe {
+      width: 100%;
+      height: 230px;
+      border-radius: 10px;
+      border: none;
+    }
 
-.hidden {
-  display: none;
-}
-</style>
+    .hidden {
+      display: none;
+    }
+  </style>
 </head>
 
 <body>
 <div class="container">
 
-  <!-- MAIN PAGE -->
   <div id="main">
     <h1>Will you be my Valentine?</h1>
 
-    <button class="yes" onclick="showSuccess()">Yes</button>
-    <button class="no" id="noBtn">No</button>
+    <div class="button-group">
+      <button class="yes" onclick="showSuccess()">Yes</button>
+      <button class="no" id="noBtn">No</button>
+    </div>
 
     <div class="envelope" onclick="openVideo()">
       <div class="letter">
         💌 I learned this because the lyrics remind me of how lucky I feel to have you.
-        <br><br>(Click to open)
+        <br><br>
+        <strong>(Click to open)</strong>
       </div>
     </div>
   </div>
 
-  <!-- VIDEO MODAL -->
   <div id="videoModal" class="modal">
     <div class="modal-card">
       <div id="videoContainer"></div>
-      <p style="font-size:0.8rem">(Tap play if needed 🔊)</p>
+      <p style="font-size:0.8rem; margin-top:10px;">(Tap play if needed 🔊)</p>
       <button class="back" onclick="closeVideo()">Close</button>
     </div>
   </div>
 
-  <!-- SUCCESS PAGE -->
   <div id="success" class="hidden">
     <h1>YEYY HEHEHE I LOVE YOU BABY ❤️</h1>
     <p>I can’t wait to spend Valentine’s Day with you!</p>
-    <img src="https://media.giphy.com/media/l4FGpPki5v2Bcd6Ss/giphy.gif" width="220">
     <br>
+    <img src="https://media.giphy.com/media/l4FGpPki5v2Bcd6Ss/giphy.gif" width="220">
+    <br><br>
     <button class="back" onclick="goBack()">← Back</button>
   </div>
 
@@ -181,7 +196,7 @@ function openVideo() {
   videoModal.style.display = "flex";
   videoContainer.innerHTML = `
     <iframe
-      src="https://www.youtube.com/embed/Xo4GsXk30II"
+      src="https://www.youtube.com/embed/Xo4GsXk30II?autoplay=1"
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
       allowfullscreen>
     </iframe>
@@ -201,9 +216,15 @@ function showSuccess() {
 function goBack() {
   document.getElementById("success").classList.add("hidden");
   document.getElementById("main").classList.remove("hidden");
+  // Reset No button position
+  noBtn.style.position = "relative";
+  noBtn.style.left = "0";
+  noBtn.style.top = "0";
 }
 
 function moveNo() {
+  // Switch to absolute only when they try to click it
+  noBtn.style.position = "absolute";
   noBtn.style.left = Math.random() * (window.innerWidth - 80) + "px";
   noBtn.style.top = Math.random() * (window.innerHeight - 40) + "px";
 }

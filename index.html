@@ -1,47 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Be My Valentine 💖</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-
-
-  <div class="container" id="mainContent">
-    <h1>Will you be my Valentine?</h1>
-
-    <div class="buttons">
-      <button id="yesBtn">Yes</button>
-      <button id="noBtn">No</button>
+<div class="container" id="mainContent">
+  <div id="letterSection" class="scene">
+    <div class="envelope-wrapper" onclick="openLetter()">
+      <div class="envelope">
+        <div class="flap"></div>
+        <div class="letter-inner">
+          <p>💌 I’ve been learning this because the lyrics remind me so much of how lucky I feel to have you. I wanted to dedicate it to you tonight.</p>
+          <span>(click to open video)</span>
+        </div>
+      </div>
     </div>
-
-    <div class="letter" id="openLetter">
-      💌 I’ve been learning this because the lyrics remind me so much of how lucky I feel to have you. I wanted to dedicate it to you tonight.
-      <span>(click me)</span>
+    <h1 class="title">Will you be my Valentine?</h1>
+    <div class="buttons">
+      <button id="yesBtn" class="btn btn-yes" onclick="celebrate()">Yes</button>
+      <button id="noBtn" class="btn btn-no">No</button>
     </div>
   </div>
 
-  <div class="success hidden" id="success">
-    <h1>YEYY HEHEHE I LOVE YOU BABY </h1>
+  <div id="videoModal" class="modal hidden">
+    <div class="modal-content">
+      <video id="vdayVideo" controls playsinline crossorigin="anonymous">
+        <source src="https://drive.google.com/uc?export=download&id=1ZOOS_nlzqIWqntIJtQfjqr0hOVbD5ji_" type="video/mp4">
+      </video>
+      <button class="btn btn-close" onclick="closeModal()">Close Video</button>
+    </div>
+  </div>
+
+  <div class="success hidden" id="successScreen">
+    <h1>YEYY HEHEHE I LOVE YOU BABY ❤️</h1>
     <p>I can’t wait to spend Valentine’s Day with you</p>
     <img src="https://media.giphy.com/media/l4FGpPki5v2Bcd6Ss/giphy.gif" alt="cute gif">
   </div>
-
-
-  <div class="modal hidden" id="modal">
-    <div class="modal-content">
-      <video controls playsinline>
-        <source src="your-video.mp4" type="video/mp4">
-      </video>
-      <button class="close" id="closeModal">Close</button>
-    </div>
-  </div>
- <audio id="music">
-    <source src="your-music.mp3" type="audio/mp3">
-  </audio>
-
-  <script src="script.js"></script>
-</body>
-</html>
+</div>

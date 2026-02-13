@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Be My Valentine 💖</title>
     <style>
-        /* CSS IS NOW INSIDE THE HTML FILE */
         body {
             background-color: #ffcad4;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -30,7 +29,9 @@
             cursor: pointer;
             border-radius: 0 0 10px 10px;
             box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
         }
+        .envelope-wrapper:hover { transform: scale(1.02); }
 
         .flap {
             position: absolute;
@@ -53,6 +54,7 @@
             align-items: center;
             justify-content: center;
             line-height: 1.4;
+            box-sizing: border-box;
         }
 
         /* Buttons */
@@ -68,6 +70,7 @@
 
         .yes-btn { background: #4caf50; color: white; font-size: 1.2rem; }
         .no-btn { background: #d90429; color: white; position: absolute; z-index: 10; }
+        .back-btn { background: #666; color: white; margin-top: 20px; }
 
         /* Video Modal */
         .modal {
@@ -90,7 +93,8 @@
 
         video { width: 100%; border-radius: 10px; background: black; }
         
-        .success img { max-width: 100%; border-radius: 20px; margin-top: 20px; }
+        .success img { max-width: 250px; border-radius: 20px; margin-top: 20px; }
+        h1 { color: #d90429; }
     </style>
 </head>
 <body>
@@ -100,7 +104,7 @@
             <div class="envelope-wrapper" onclick="openVideo()">
                 <div class="flap"></div>
                 <div class="letter-content">
-                    💌 I’ve been learning this because the lyrics remind me so much of how lucky I feel to have you. I wanted to dedicate it to you tonight.
+                    💌 I’ve been learning this because the lyrics remind me so much of how lucky I feel to have you. I wanted to dedicate it to you tonight. <br>(Click to open)
                 </div>
             </div>
             <h1>Will you be my Valentine?</h1>
@@ -113,7 +117,7 @@
                 <video id="vdayVideo" controls playsinline>
                     <source src="https://drive.google.com/uc?export=download&id=1ZOOS_nlzqIWqntIJtQfjqr0hOVbD5ji_" type="video/mp4">
                 </video>
-                <br>
+                <p style="font-size: 0.8rem;">(If video is black, tap play! 🔊)</p>
                 <button class="btn" onclick="closeVideo()" style="background:#666; color:white;">Close & Back</button>
             </div>
         </div>
@@ -122,17 +126,18 @@
             <h1>YEYY HEHEHE I LOVE YOU BABY ❤️</h1>
             <p>I can’t wait to spend Valentine’s Day with you!</p>
             <img src="https://media.giphy.com/media/l4FGpPki5v2Bcd6Ss/giphy.gif" alt="cute gif">
+            <br>
+            <button class="btn back-btn" onclick="goBackHome()">← Back to Letter</button>
         </div>
     </div>
 
     <script>
-        /* JAVASCRIPT IS NOW INSIDE THE HTML FILE */
         const noBtn = document.getElementById('noBtn');
         const video = document.getElementById('vdayVideo');
 
         function openVideo() {
             document.getElementById('videoModal').classList.remove('hidden');
-            video.play();
+            video.play().catch(err => console.log("Manual play needed"));
         }
 
         function closeVideo() {
@@ -145,10 +150,28 @@
             document.getElementById('successPage').classList.remove('hidden');
         }
 
-        // The running No button
+        function goBackHome() {
+            document.getElementById('successPage').classList.add('hidden');
+            document.getElementById('mainPage').classList.remove('hidden');
+            // Reset No button position
+            noBtn.style.position = 'static';
+        }
+
+        // The running No button logic
         noBtn.addEventListener('mouseover', () => {
             const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
             const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = x + 'px';
+            noBtn.style.top = y + 'px';
+        });
+
+        // Also move for touch screens
+        noBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+            noBtn.style.position = 'fixed';
             noBtn.style.left = x + 'px';
             noBtn.style.top = y + 'px';
         });

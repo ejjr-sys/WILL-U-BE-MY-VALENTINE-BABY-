@@ -1,33 +1,34 @@
-<div class="container" id="mainContent">
+<div class="container">
   <div id="letterSection" class="scene">
-    <div class="envelope-wrapper" onclick="openLetter()">
+    <div class="envelope-wrapper" onclick="openVideo()">
       <div class="envelope">
         <div class="flap"></div>
-        <div class="letter-inner">
+        <div class="letter-content">
           <p>💌 I’ve been learning this because the lyrics remind me so much of how lucky I feel to have you. I wanted to dedicate it to you tonight.</p>
-          <span>(click to open video)</span>
+          <small>(Click to open video)</small>
         </div>
       </div>
     </div>
+    
     <h1 class="title">Will you be my Valentine?</h1>
-    <div class="buttons">
-      <button id="yesBtn" class="btn btn-yes" onclick="celebrate()">Yes</button>
-      <button id="noBtn" class="btn btn-no">No</button>
+    <div class="button-group">
+      <button id="yesBtn" class="btn yes-btn" onclick="celebrate()">Yes</button>
+      <button id="noBtn" class="btn no-btn">No</button>
     </div>
   </div>
 
   <div id="videoModal" class="modal hidden">
-    <div class="modal-content">
+    <div class="modal-card">
       <video id="vdayVideo" controls playsinline crossorigin="anonymous">
         <source src="https://drive.google.com/uc?export=download&id=1ZOOS_nlzqIWqntIJtQfjqr0hOVbD5ji_" type="video/mp4">
       </video>
-      <button class="btn btn-close" onclick="closeModal()">Close Video</button>
+      <button class="btn close-btn" onclick="closeVideo()">Close & Back</button>
     </div>
   </div>
 
-  <div class="success hidden" id="successScreen">
-    <h1>YEYY HEHEHE I LOVE YOU BABY ❤️</h1>
-    <p>I can’t wait to spend Valentine’s Day with you</p>
+  <div id="successScreen" class="scene hidden">
+    <h1 class="glow-text">YEYY HEHEHE I LOVE YOU BABY ❤️</h1>
+    <p>I can’t wait to spend Valentine’s Day with you!</p>
     <img src="https://media.giphy.com/media/l4FGpPki5v2Bcd6Ss/giphy.gif" alt="cute gif">
   </div>
 </div>

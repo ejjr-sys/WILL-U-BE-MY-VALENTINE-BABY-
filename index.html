@@ -27,10 +27,6 @@ body {
   padding: 20px;
 }
 
-.hidden {
-  display: none;
-}
-
 h1 {
   color: #d90429;
   margin: 20px 0;
@@ -38,6 +34,32 @@ h1 {
 
 p {
   color: #444;
+}
+
+button {
+  border: none;
+  padding: 12px 25px;
+  border-radius: 25px;
+  font-weight: bold;
+  cursor: pointer;
+  margin: 8px;
+}
+
+.yes {
+  background: #4caf50;
+  color: white;
+}
+
+.no {
+  background: #d90429;
+  color: white;
+  position: absolute;
+}
+
+.back {
+  background: #666;
+  color: white;
+  margin-top: 15px;
 }
 
 /* ===== ENVELOPE ===== */
@@ -80,39 +102,12 @@ p {
   font-size: 14px;
 }
 
-/* ===== BUTTONS ===== */
-button {
-  border: none;
-  padding: 12px 25px;
-  border-radius: 25px;
-  font-weight: bold;
-  cursor: pointer;
-  margin: 8px;
-}
-
-.yes {
-  background: #4caf50;
-  color: white;
-}
-
-.no {
-  background: #d90429;
-  color: white;
-  position: absolute;
-}
-
-.back {
-  background: #666;
-  color: white;
-  margin-top: 15px;
-}
-
 /* ===== MODAL ===== */
 .modal {
   position: fixed;
   inset: 0;
   background: rgba(0,0,0,0.85);
-  display: flex;
+  display: none; /* IMPORTANT */
   justify-content: center;
   align-items: center;
   padding: 20px;
@@ -132,13 +127,17 @@ iframe {
   border-radius: 10px;
   border: none;
 }
+
+.hidden {
+  display: none;
+}
 </style>
 </head>
 
 <body>
 <div class="container">
 
-  <!-- MAIN -->
+  <!-- MAIN PAGE -->
   <div id="main">
     <h1>Will you be my Valentine?</h1>
 
@@ -154,7 +153,7 @@ iframe {
   </div>
 
   <!-- VIDEO MODAL -->
-  <div id="videoModal" class="modal hidden">
+  <div id="videoModal" class="modal">
     <div class="modal-card">
       <div id="videoContainer"></div>
       <p style="font-size:0.8rem">(Tap play if needed 🔊)</p>
@@ -162,7 +161,7 @@ iframe {
     </div>
   </div>
 
-  <!-- SUCCESS -->
+  <!-- SUCCESS PAGE -->
   <div id="success" class="hidden">
     <h1>YEYY HEHEHE I LOVE YOU BABY ❤️</h1>
     <p>I can’t wait to spend Valentine’s Day with you!</p>
@@ -179,7 +178,7 @@ const videoModal = document.getElementById("videoModal");
 const videoContainer = document.getElementById("videoContainer");
 
 function openVideo() {
-  videoModal.classList.remove("hidden");
+  videoModal.style.display = "flex";
   videoContainer.innerHTML = `
     <iframe
       src="https://www.youtube.com/embed/Xo4GsXk30II"
@@ -190,7 +189,7 @@ function openVideo() {
 }
 
 function closeVideo() {
-  videoModal.classList.add("hidden");
+  videoModal.style.display = "none";
   videoContainer.innerHTML = "";
 }
 
